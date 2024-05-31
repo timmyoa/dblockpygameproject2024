@@ -11,7 +11,7 @@ WIDTH = 1280
 HEIGHT = 720
 TITLE = "THE 'GAME' :O"
 
-TIMAGE= pg.image.load("./Images/lawsuite.jpeg")
+TIMAGE= pg.image.load("./Images/Mario.png")
 TIMAGE=pg.transform.scale(#the method
     TIMAGE,
     (TIMAGE.get_width()//2, TIMAGE.get_height()//2)
@@ -20,7 +20,7 @@ TIMAGE=pg.transform.scale(#the method
 class Player(pg.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image=pg.image.load("./Images/ship.png")
+        self.image=pg.image.load("./Images/Mario.png")
         self.rect=self.image.get_rect()
         self.rect.bottom=HEIGHT//2
         self.rect.left=WIDTH//2
@@ -40,7 +40,7 @@ def main():
 
     # Create a snow sprites group
     player=Player()
-    all_sp=pg.sprite.Group
+    all_sp=pg.sprite.Group()
     all_sp.add(player)
     # ----- MAIN LOOP
     while not done:
