@@ -10,7 +10,6 @@ SKY_BLUE = (95, 165, 228)
 WIDTH = 1280
 HEIGHT = 720
 TITLE = "THE 'GAME' :O"
-num_fly=0
 TIMAGE= pg.image.load("./Images/Mario.png")
 TIMAGE=pg.transform.scale(#the method
     TIMAGE,
@@ -20,7 +19,7 @@ TIMAGE=pg.transform.scale(#the method
 class Player(pg.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image=pg.image.load("./Images/Mario.png")
+        self.image=TIMAGE
         self.rect=self.image.get_rect()
         #start at center
         self.rect.bottom=HEIGHT//2
@@ -36,7 +35,8 @@ class Flying_ob(pg.sprite.Sprite):
 
 def main():
     pg.init()
-
+    num_fly=5 #number of flying obect on screen
+    counter_fly=0 #counter for flys on screen
     # ----- SCREEN PROPERTIES
     size = (WIDTH, HEIGHT)
     screen = pg.display.set_mode(size)
@@ -52,11 +52,11 @@ def main():
     all_sp.add(player)
     #create flying objects and put them in all_sp and a new sprite group: fly_sp
     fly_sp=pg.sprite.Group
-    for i in range():
-        flying=fly_sp
+    for i in range(num_fly):
+        flying=fly_sp()
         all_sp.add(flying)
         fly_sp.add(flying)
-        num_fly+=1
+        counter_fly+=1
     # ----- MAIN LOOP
     while not done:
         # -- Event Handler
