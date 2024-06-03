@@ -3,8 +3,9 @@
 final project for slss programming
 run ptyhon main.py to start
 ### features
-
-
+scary
+parkour
+classic
 ### bugs
 
 
