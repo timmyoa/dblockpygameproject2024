@@ -10,10 +10,15 @@ SKY_BLUE = (95, 165, 228)
 WIDTH = 1280
 HEIGHT = 720
 TITLE = "THE 'GAME' :O"
-TIMAGE= pg.image.load("./Images/Mario.png")
+TIMAGE= pg.image.load("./Images/swatter.png")
 TIMAGE=pg.transform.scale(#the method
     TIMAGE,
     (TIMAGE.get_width()//2, TIMAGE.get_height()//2) #player image
+)
+FIMAGE=pg.image.load("Images/fly1.png")
+FIMAGE=pg.transform.scale(#the method
+    FIMAGE,
+    (FIMAGE.get_width()//25, FIMAGE.get_height()//25) #"flying" object image
 )
 
 class Player(pg.sprite.Sprite):
@@ -29,9 +34,32 @@ class Player(pg.sprite.Sprite):
         self.rect.centerx=pg.mouse.get_pos()[0]
         self.rect.centery=pg.mouse.get_pos()[1]
 
-class Flying_ob(pg.sprite.Sprite):
-    pass
-
+class Flying_ob(pg.sprite.Sprite):#sprite of fly
+    def __init__(self):
+        super().__init__()
+        self.image = FIMAGE
+        self.rect= self.image.get_rect()
+        # new properity: velocity of the dvd logo
+        self.vel_x=random.randrange(20,50)
+        self.vel_y=random.randrange(20,50)#starting speed and direction
+        self.rect.centerx = random.randrange(100,1100)
+        self.rect.centery = random.randrange(100,620)
+    def update(self):
+        self.rect.x+=self.vel_x
+        self.rect.y+=self.vel_y
+        #bounce if reach bottom
+        if self.rect.bottom > 720:
+            #self.vel_x=random.randrange(20,50)
+            self.vel_y *= -1
+        elif self.rect.top <0:
+            #self.vel_x=random.randrange(20,50)
+            self.vel_y *=-1
+        if self.rect.right>1280:
+            #self.vel_x=random.randrange(20,50)
+            self.vel_x*=-1
+        elif self.rect.left<0:
+            #self.vel_x=random.randrange(20,50)
+            self.vel_x*=-1
 
 def main():
     pg.init()
@@ -53,7 +81,7 @@ def main():
     #create flying objects and put them in all_sp and a new sprite group: fly_sp
     fly_sp=pg.sprite.Group
     for i in range(num_fly): # create flying objects
-        flying=fly_sp()
+        flying=Flying_ob()
         all_sp.add(flying)
         fly_sp.add(flying)
         counter_fly+=1
