@@ -63,6 +63,7 @@ class Flying_ob(pg.sprite.Sprite):#sprite of fly
 
 def main():
     pg.init()
+    pg.mouse.set_visible(False)
     num_fly=5 #number of inital flying obect on screen
     counter_fly=0 #flys on screen counted
     # ----- SCREEN PROPERTIES
