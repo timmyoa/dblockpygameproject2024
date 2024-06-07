@@ -20,6 +20,11 @@ FIMAGE=pg.transform.scale(#the method
     FIMAGE,
     (FIMAGE.get_width()//25, FIMAGE.get_height()//25) #"flying" object image
 )
+IIMAGE=pg.image.load("Images/boost.png")
+IIMAGE=pg.transform.scale(#the method
+    IIMAGE,
+    (IIMAGE.get_width()//25, IIMAGE.get_height()//25) #boost object image
+)
 
 class Player(pg.sprite.Sprite):
     def __init__(self):
@@ -47,19 +52,37 @@ class Flying_ob(pg.sprite.Sprite):#sprite of fly
     def update(self):
         self.rect.x+=self.vel_x
         self.rect.y+=self.vel_y
-        #bounce if reach bottom
+        #bounce if reach edge, applies a random speed in a random direction
         if self.rect.bottom > 720:
-            #self.vel_x=random.randrange(20,50)
+            self.vel_y=random.randrange(20,50)
             self.vel_y *= -1
+            self.vel_x=random.randrange(-50,50)
         elif self.rect.top <0:
-            #self.vel_x=random.randrange(20,50)
+            self.vel_y=random.randrange(-50,-20)
             self.vel_y *=-1
+            self.vel_x=random.randrange(-50,50)
         if self.rect.right>1280:
-            #self.vel_x=random.randrange(20,50)
+            self.vel_x=random.randrange(20,50)
+            self.vel_y=random.randrange(-50,50)
             self.vel_x*=-1
         elif self.rect.left<0:
-            #self.vel_x=random.randrange(20,50)
+            self.vel_x=random.randrange(-50,-20)
+            self.vel_y=random.randrange(-50,50)
             self.vel_x*=-1
+class items(pg.sprite.Sprite):
+    def __init__(self,frame_spawm,spawn_loc):#frame-based spawn, spawn_loc decide where item comes from
+        super().__init__()
+        self.image=IIMAGE
+        self.rect=self.image.get_rect()
+        if spawn_loc==1:#spawm top left corner
+            self.rect.centerx=-20
+            self.rect.centery=-20
+        if spawn_loc==2:#spawm bottom right corner
+            self.rect.centerx=1300
+            self.rect.centery=740
+
+    def update():
+        pass
 
 def main():
     pg.init()
@@ -85,7 +108,7 @@ def main():
         flying=Flying_ob()
         all_sp.add(flying)
         fly_sp.add(flying)
-        counter_fly+=1
+        counter_fly+=1#counter of flying object
     # ----- MAIN LOOP
     while not done:
         # -- Event Handler
