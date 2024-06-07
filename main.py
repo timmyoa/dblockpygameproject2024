@@ -23,7 +23,7 @@ FIMAGE=pg.transform.scale(#the method
 IIMAGE=pg.image.load("Images/boost.png")
 IIMAGE=pg.transform.scale(#the method
     IIMAGE,
-    (IIMAGE.get_width()//25, IIMAGE.get_height()//25) #boost object image
+    (IIMAGE.get_width()//5, IIMAGE.get_height()//5) #boost object image
 )
 
 class Player(pg.sprite.Sprite):
@@ -69,6 +69,7 @@ class Flying_ob(pg.sprite.Sprite):#sprite of fly
             self.vel_x=random.randrange(-50,-20)
             self.vel_y=random.randrange(-50,50)
             self.vel_x*=-1
+
 class items(pg.sprite.Sprite):
     def __init__(self,frame_spawm,spawn_loc):#frame-based spawn, spawn_loc decide where item comes from
         super().__init__()
