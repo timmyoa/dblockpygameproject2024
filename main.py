@@ -7,6 +7,7 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 YELLOW = (255, 255, 0)
 SKY_BLUE = (95, 165, 228)
+GREEN = (0, 255, 0)
 WIDTH = 1280
 HEIGHT = 720
 TITLE = "THE 'GAME' :O"
@@ -70,22 +71,41 @@ class Flying_ob(pg.sprite.Sprite):#sprite of fly
             self.vel_y=random.randrange(-50,50)
             self.vel_x*=-1
 
-class items(pg.sprite.Sprite):
-    def __init__(self,frame_spawm,spawn_loc):#frame-based spawn, spawn_loc decide where item comes from
-        super().__init__()
-        self.image=IIMAGE
-        self.rect=self.image.get_rect()
-        if spawn_loc==1:#spawm top left corner
-            self.rect.centerx=-20
-            self.rect.centery=-20
-        if spawn_loc==2:#spawm bottom right corner
-            self.rect.centerx=1300
-            self.rect.centery=740
+# class items(pg.sprite.Sprite):
+#     def __init__(self,frame_spawm,spawn_loc):#frame-based spawn, spawn_loc decide where item comes from
+#         super().__init__()
+#         self.image=IIMAGE
+#         self.rect=self.image.get_rect()
+#         if spawn_loc==1:#spawm top left corner
+#             self.rect.centerx=-20
+#             self.rect.centery=-20
+#         if spawn_loc==2:#spawm bottom right corner
+#             self.rect.centerx=1300
+#             self.rect.centery=740
+#     def update(self):
+#         self.rect.x+=self.vel_x
+#         self.rect.y+=self.vel_y
+#         #bounce if reach edge, applies a random speed in a random direction
+#         if self.rect.bottom > 720:
+#             self.vel_y=random.randrange(20,50)
+#             self.vel_y *= -1
+#             self.vel_x=random.randrange(-50,50)
+#         elif self.rect.top <0:
+#             self.vel_y=random.randrange(-50,-20)
+#             self.vel_y *=-1
+#             self.vel_x=random.randrange(-50,50)
+#         if self.rect.right>1280:
+#             self.vel_x=random.randrange(20,50)
+#             self.vel_y=random.randrange(-50,50)
+#             self.vel_x*=-1
+#         elif self.rect.left<0:
+#             self.vel_x=random.randrange(-50,-20)
+#             self.vel_y=random.randrange(-50,50)
+#             self.vel_x*=-1
 
-    def update():
-        pass
 
 def main():
+    testnum=0
     pg.init()
     pg.mouse.set_visible(False)
     num_fly=5 #number of inital flying obect on screen
@@ -94,8 +114,10 @@ def main():
     size = (WIDTH, HEIGHT)
     screen = pg.display.set_mode(size)
     pg.display.set_caption(TITLE)
+    font=pg.font.SysFont("Papyrus",24)
 
     # ----- LOCAL VARIABLES
+    score=0
     done = False
     clock = pg.time.Clock()
 
@@ -104,7 +126,7 @@ def main():
     all_sp=pg.sprite.Group()
     all_sp.add(player)
     #create flying objects and put them in all_sp and a new sprite group: fly_sp
-    fly_sp=pg.sprite.Group
+    fly_sp=pg.sprite.Group()
     for i in range(num_fly): # create flying objects
         flying=Flying_ob()
         all_sp.add(flying)
@@ -116,9 +138,27 @@ def main():
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 done = True
+                     
+        # for flying in fly_sp:
+        #     if event.type == pg.MOUSEBUTTONDOWN:
+        #         score+=1
+        #         fly_sp.kill(flying)
 
         # ----- LOGIC
         all_sp.update()
+        if event.type == pg.MOUSEBUTTONDOWN:
+            fly_collide = pg.sprite.spritecollide(player, fly_sp, True) 
+            for flying in fly_collide:
+                counter_fly-=1
+                score+=1
+        while counter_fly!=5:
+            testnum+=1
+            flying=Flying_ob()
+            all_sp.add(flying)
+            fly_sp.add(flying)
+            counter_fly+=1#counter of flying object
+
+
 
         # ----- RENDER
         screen.fill(BLACK)
@@ -127,6 +167,8 @@ def main():
 
         # ----- UPDATE DISPLAY
         all_sp.draw(screen)
+        score_image=font.render(f"Score: {score}", True, GREEN)
+        screen.blit(score_image, (5,5))
         pg.display.flip()
         clock.tick(60)
 
