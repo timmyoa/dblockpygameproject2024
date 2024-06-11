@@ -6,7 +6,8 @@ run ptyhon main.py to start
 slap as many flies as you can in 60 seconds to get the highest score
 
 ### bugs
-
+final score does not show
+music does not repeat when in waiting scene
 
 ### Attribution
 slap sound from "https://pixabay.com/sound-effects/hard-slap-46388/"
