@@ -83,22 +83,22 @@ def main():
     num_fly=5 #number of inital flying obect on screen
     counter_fly=0 #flys on screen counted
     # ----- SCREEN PROPERTIES
-    asd=0
+    asd=0 # var to see if it is first run or not
     size = (WIDTH, HEIGHT)
     screen = pg.display.set_mode(size)
     pg.display.set_caption(TITLE)
-    font=pg.font.SysFont("Papyrus",24)
-    font1=pg.font.SysFont("Papyrus",33)
-    mixer.init() 
+    font=pg.font.SysFont("Papyrus",24)# font for score
+    font1=pg.font.SysFont("Papyrus",33)#font for beginning phrase
+    mixer.init() #music
     mixer.music.load("./sound/jazz.mp3")
     mixer.music.play() #play the music
 
 
     # ----- LOCAL VARIABLES
-    insctuct=font1.render(f"Press space to play, hit as many flies as possible in 1 minutes, try to get a high score", True, BLUE)
-    bg = KIMAGE
-    timer=0
-    music_timer=0
+    insctuct=font1.render(f"Press space to play, hit as many flies as possible in 1 minutes, try to get a high score", True, BLUE)#starting phrase
+    bg = KIMAGE#pizza background
+    timer=0#timer for main feature run time
+    music_timer=0# timer to to detect music run time
     score=0
     done = False
     clock = pg.time.Clock()
@@ -121,9 +121,7 @@ def main():
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 done = True
-                     
-                     
-        while wait==1:
+        while wait==1:# starting phrase
             if asd==1:
                 screen.blit(hisc,(20,20))
             screen.fill(BLACK)
@@ -148,7 +146,7 @@ def main():
         if event.type == pg.MOUSEBUTTONDOWN:
             fly_collide = pg.sprite.spritecollide(player, fly_sp, True) 
             for flying in fly_collide:
-                counter_fly-=1#delete counter by one when 1 fly is gone
+                counter_fly-=1#delete counter by one when a fly is gone
                 score+=1
         while counter_fly!=5:
             flying=Flying_ob()
@@ -176,7 +174,7 @@ def main():
         screen.blit(score_image, (5,5))
         pg.display.flip()
         clock.tick(60)
-        if timer>=720:
+        if timer>=7200:# turn to starting phrase when time reach two minutes, time is cacultaed by frames
             hisc=font1.render(f"Final Score: {score}", True, GREEN)
             asd=1
             wait=1
