@@ -27,6 +27,11 @@ IIMAGE=pg.transform.scale(#the method
     IIMAGE,
     (IIMAGE.get_width()//5, IIMAGE.get_height()//5) #boost object image
 )
+KIMAGE=pg.image.load("Images/OIP.jpg")
+KIMAGE=pg.transform.scale(#the method
+    KIMAGE,
+    (KIMAGE.get_width()//5, KIMAGE.get_height()//5) #boost object image
+)
 
 class Player(pg.sprite.Sprite):
     def __init__(self):
@@ -40,6 +45,10 @@ class Player(pg.sprite.Sprite):
         #movement by following the mouse
         self.rect.centerx=pg.mouse.get_pos()[0]
         self.rect.centery=pg.mouse.get_pos()[1]
+        for event in pg.event.get():
+            if event.type == pg.MOUSEBUTTONDOWN:
+                self.image=KIMAGE 
+
 
 class Flying_ob(pg.sprite.Sprite):#sprite of fly
     def __init__(self):
