@@ -1,4 +1,6 @@
 # pygame project
+# block D
+# name: tim
 ## programming 1/2
 final project for slss programming
 run python main.py to start
